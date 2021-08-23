@@ -85,7 +85,15 @@ void AssignmentApp::CheckInput()
                 ChangeRecursions(1);
                 break;
 
+            case SDLK_EQUALS:
+                ChangeRecursions(1);
+                break;
+
             case SDLK_KP_MINUS:
+                ChangeRecursions(-1);
+                break;
+
+            case SDLK_MINUS:
                 ChangeRecursions(-1);
                 break;
 
@@ -120,12 +128,14 @@ void AssignmentApp::CheckInput()
                 g.isImmidiateMode = true;
                 recursions = 1;
                 currentScene->CreateSponge(recursions);
+                currentScene->Init();
                 break;
             case SDLK_2:
                 currentScene = sceneList[1];
                 g.isImmidiateMode = false;
                 recursions = 1;
                 currentScene->CreateSponge(recursions);
+                currentScene->Init();
                 break;
             case SDLK_3:
                 break;
@@ -199,7 +209,7 @@ void AssignmentApp::UpdateState(unsigned int td_milli)
         cam->MoveCamera(milliseconds, 3);
     }
      
-    
+    cam->CalculateMatrix();
 
     // This is where we will do all our model updating, physics, etc...
 }
@@ -306,14 +316,7 @@ void AssignmentApp::RenderFrame()
 
     CheckToggles();
 
-    cam->CalculateMatrix();
-    glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(glm::value_ptr(cam->GetProj()));
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(glm::value_ptr(cam->GetView()));
-
-    currentScene->DrawSponge(tog.Lighting);
-    glPopMatrix();
+    currentScene->DrawSponge(tog.Lighting, cam);
     
     // The rest of your frame rendering code goes here
 

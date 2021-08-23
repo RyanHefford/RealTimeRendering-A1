@@ -7,7 +7,15 @@ public:
 	RTRScene2();
 	~RTRScene2();
 
-	virtual void CreateSponge(int subDivitions);
-	void DrawCube(float x, float y, float z, float size, int recursionsLeft);
+	void DrawSponge(bool lighting, Camera* cam);
+	void Init();
+	void ResetShaders();
+	void CreateSponge(int subDivisions);
+
+	unsigned int m_VertexArray;
+	unsigned int m_VertexBuffer;
+	unsigned int m_FaceElementBuffer;
+
+	Shader* spongeShader;
 
 };

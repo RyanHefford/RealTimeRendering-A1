@@ -1,28 +1,7 @@
-﻿  RTRApp.cpp
-  RTRScene1.cpp
-  RTRScene2.cpp
-  RTRSceneBase.cpp
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Src\RTRSceneBase.cpp(64,20): warning C4018: '<': signed/unsigned mismatch
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xutility(4595,24): warning C4244: '=': conversion from 'const _Ty' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=int
-          ]
-          and
-          [
-              _Ty=float
-          ]
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Src\RTRSceneBase.cpp(213): message : see reference to function template instantiation 'void std::fill<_Ty*,int>(const _FwdIt,const _FwdIt,const int &)' being compiled
-          with
-          [
-              _Ty=float,
-              _FwdIt=float *
-          ]
-  main.cpp
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Include\gltext\gltext.h(300,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Src\main.cpp(181,54): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Src\main.cpp(331,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Src\main.cpp(331,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  RTRApp.vcxproj -> C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\A1_HEFFORD_RYAN\Build\Debug - x64\A1.exe
+﻿  main.cpp
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Include\gltext\gltext.h(300,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\main.cpp(191,54): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\main.cpp(334,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\main.cpp(334,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  RTRApp.vcxproj -> C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Build\Debug - x64\A1.exe
   0 File(s) copied

@@ -65,7 +65,7 @@ void Camera::AddYawAndPitch(float Xoffset, float Yoffset)
 
 void Camera::CalculateMatrix()
 {
-	proj = glm::perspective(glm::radians(45.0f), width / height, 0.01f, 100.0f);
+	proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.01f, 10.0f);
 	view = glm::lookAt(camPosition, camPosition + camFront, camUp);
 
 

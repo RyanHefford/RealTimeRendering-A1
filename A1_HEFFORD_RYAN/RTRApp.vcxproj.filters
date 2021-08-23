@@ -63,4 +63,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Src\RTRScene2.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Src\RTRScene2.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Src\RTRScene2.geom">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

@@ -7,5 +7,6 @@ public:
 	RTRScene1();
 	~RTRScene1();
 
+	void DrawSponge(bool lighting, Camera* cam);
 
 };

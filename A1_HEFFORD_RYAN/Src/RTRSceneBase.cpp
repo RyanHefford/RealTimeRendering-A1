@@ -55,50 +55,11 @@ void RTRSceneBase::DrawCube(float x, float y, float z, float size, int recursion
 
 
 //goes through list and draws each of the vectors
-void RTRSceneBase::DrawSponge(bool lighting)
+void RTRSceneBase::DrawSponge(bool lighting, Camera* cam)
 {
-	int currentColor = 0;
-
-	glBegin(GL_TRIANGLES);
-	
-	for (int i = 0; i < facesSize; i++) {
-
-		//color deciding logic
-		if (i % 6 == 0) {
-			if (lighting) {
-				glm::vec3  normals = { vertex_normals[currentColor * 3], vertex_normals[currentColor * 3 + 1], vertex_normals[currentColor * 3 + 2] };
-				glNormal3f(normals.x, normals.y, normals.z);
-
-
-				GLfloat color[] = { vertex_colors[currentColor * 3], vertex_colors[currentColor * 3 + 1], vertex_colors[currentColor * 3 + 2], 1.0 };
-				GLfloat specular[] = { 1,1,1,1 };
-				GLfloat shine[] = { 60.0 };
-
-				glMaterialfv(GL_FRONT, GL_AMBIENT, color);
-				glMaterialfv(GL_FRONT, GL_DIFFUSE, color);
-				glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-				glMaterialfv(GL_FRONT, GL_SHININESS, shine);
-			}
-			else {
-				glColor3f(vertex_colors[currentColor * 3], vertex_colors[currentColor * 3 + 1], vertex_colors[currentColor * 3 + 2]);
-			}
-
-			if (currentColor % 6 != 5) {
-				currentColor++;
-			}
-			else {
-				currentColor = 0;
-			}
-		}
-
-		glVertex3f(vertex_points[(faces[i]*3)], vertex_points[(faces[i]*3)+1], vertex_points[(faces[i]*3)+2]);
-	}
-
-	glEnd();
 
 	
 }
-
 
 
 void RTRSceneBase::AddToList(glm::vec3 FTL, glm::vec3 FTR, glm::vec3 FBL, glm::vec3 FBR, glm::vec3 BTL, glm::vec3 BTR, glm::vec3 BBL, glm::vec3 BBR) {
@@ -121,8 +82,13 @@ void RTRSceneBase::AddToList(glm::vec3 FTL, glm::vec3 FTR, glm::vec3 FBL, glm::v
 void RTRSceneBase::AddFaces() {
 
 	int adjustedIndex = (vertexSize/3) - 9;
+	int numNormalRepeat = 2;
 
 	//Front face triangles
+	for (int i = 0; i < numNormalRepeat; i++) {
+		AddNormals(0, 0, 1);
+	}
+
 	faces[facesSize] = adjustedIndex + 1;
 	facesSize++;
 	faces[facesSize] = adjustedIndex + 3;
@@ -137,6 +103,10 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Back face triangles
+	for (int i = 0; i < numNormalRepeat; i++) {
+		AddNormals(0, 0, -1);
+	}
+
 	faces[facesSize] = adjustedIndex + 6;
 	facesSize++;
 	faces[facesSize] = adjustedIndex + 8;
@@ -151,6 +121,10 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Top face triangles
+	for (int i = 0; i < numNormalRepeat; i++) {
+		AddNormals(0, 1, 0);
+	}
+
 	faces[facesSize] = adjustedIndex + 5;
 	facesSize++;
 	faces[facesSize] = adjustedIndex + 1;
@@ -165,6 +139,10 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Bottom face triangles
+	for (int i = 0; i < numNormalRepeat; i++) {
+		AddNormals(0, -1, 0);
+	}
+
 	faces[facesSize] = adjustedIndex + 3;
 	facesSize++;
 	faces[facesSize] = adjustedIndex + 8;
@@ -179,6 +157,10 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Right face triangles
+	for (int i = 0; i < numNormalRepeat; i++) {
+		AddNormals(1, 0, 0);
+	}
+
 	faces[facesSize] = adjustedIndex + 2;
 	facesSize++;
 	faces[facesSize] = adjustedIndex + 4;
@@ -193,6 +175,10 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Left face triangles
+	for (int i = 0; i < numNormalRepeat; i++) {
+		AddNormals(-1,0,0);
+	}
+
 	faces[facesSize] = adjustedIndex + 5;
 	facesSize++;
 	faces[facesSize] = adjustedIndex + 7;
@@ -207,14 +193,25 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 }
 
+void RTRSceneBase::AddNormals(float x, float y, float z) {
+	vertex_normals[normalSize] = x;
+	normalSize++;
+	vertex_normals[normalSize] = y;
+	normalSize++;
+	vertex_normals[normalSize] = z;
+	normalSize++;
+}
+
 void RTRSceneBase::ResetArrays()
 {
 	//empty arrays
 	std::fill(std::begin(vertex_points), std::end(vertex_points), 0);
+	std::fill(std::begin(vertex_normals), std::end(vertex_points), 0);
 	std::fill(std::begin(faces), std::end(faces), 0);
 
 	//reset sizes to 0
 	vertexSize = 0;
+	normalSize = 0;
 	facesSize = 0;
 
 }

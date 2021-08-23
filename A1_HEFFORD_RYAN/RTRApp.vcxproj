@@ -37,6 +37,11 @@
     <ClInclude Include="Src\RTRSceneBase.h" />
     <ClInclude Include="Src\shader.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Src\RTRScene2.frag" />
+    <None Include="Src\RTRScene2.geom" />
+    <None Include="Src\RTRScene2.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
