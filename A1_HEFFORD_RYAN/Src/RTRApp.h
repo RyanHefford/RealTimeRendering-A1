@@ -15,9 +15,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
+#include "Light.h"
 #include "RTRSceneBase.h"
 #include "RTRScene1.h"
 #include "RTRScene2.h"
+#include "RTRScene3.h"
+#include "RTRScene4.h"
+#include "RTRScene5.h"
+#include "RTRScene6.h"
 
 class RTRApp
 {
@@ -27,10 +32,10 @@ private:
 public:
     Camera* cam;
     int recursions = 1;
-    glm::vec3 rotation;
     RTRSceneBase* currentScene;
 
     RTRSceneBase* sceneList[6];
+    Light* lightModel = new Light();
 
     RTRApp(const char* title, bool fullscreen = false, int width = 1024, int height = 768);
     virtual int Init();

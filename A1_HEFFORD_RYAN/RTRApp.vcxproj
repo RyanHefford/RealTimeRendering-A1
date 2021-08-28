@@ -26,6 +26,10 @@
     <ClCompile Include="Src\main.cpp" />
     <ClCompile Include="Src\RTRScene1.cpp" />
     <ClCompile Include="Src\RTRScene2.cpp" />
+    <ClCompile Include="Src\RTRScene3.cpp" />
+    <ClCompile Include="Src\RTRScene4.cpp" />
+    <ClCompile Include="Src\RTRScene5.cpp" />
+    <ClCompile Include="Src\RTRScene6.cpp" />
     <ClCompile Include="Src\RTRSceneBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -34,13 +38,17 @@
     <ClInclude Include="Src\RTRApp.h" />
     <ClInclude Include="Src\RTRScene1.h" />
     <ClInclude Include="Src\RTRScene2.h" />
+    <ClInclude Include="Src\RTRScene3.h" />
+    <ClInclude Include="Src\RTRScene4.h" />
+    <ClInclude Include="Src\RTRScene5.h" />
+    <ClInclude Include="Src\RTRScene6.h" />
     <ClInclude Include="Src\RTRSceneBase.h" />
     <ClInclude Include="Src\shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Src\RTRScene2.frag" />
-    <None Include="Src\RTRScene2.geom" />
-    <None Include="Src\RTRScene2.vert" />
+    <None Include="Src\RTR.frag" />
+    <None Include="Src\RTR.geom" />
+    <None Include="Src\RTR.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -9,7 +9,7 @@ RTRSceneBase::~RTRSceneBase()
 {
 }
 
-void RTRSceneBase::Init()
+void RTRSceneBase::Init(Camera* cam)
 {
 }
 
@@ -55,9 +55,9 @@ void RTRSceneBase::DrawCube(float x, float y, float z, float size, int recursion
 
 
 //goes through list and draws each of the vectors
-void RTRSceneBase::DrawSponge(bool lighting, Camera* cam)
+int RTRSceneBase::DrawSponge(bool lighting, Camera* cam, Light *lightModel)
 {
-
+	return 0;
 	
 }
 
@@ -85,9 +85,6 @@ void RTRSceneBase::AddFaces() {
 	int numNormalRepeat = 2;
 
 	//Front face triangles
-	for (int i = 0; i < numNormalRepeat; i++) {
-		AddNormals(0, 0, 1);
-	}
 
 	faces[facesSize] = adjustedIndex + 1;
 	facesSize++;
@@ -103,9 +100,6 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Back face triangles
-	for (int i = 0; i < numNormalRepeat; i++) {
-		AddNormals(0, 0, -1);
-	}
 
 	faces[facesSize] = adjustedIndex + 6;
 	facesSize++;
@@ -121,9 +115,6 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Top face triangles
-	for (int i = 0; i < numNormalRepeat; i++) {
-		AddNormals(0, 1, 0);
-	}
 
 	faces[facesSize] = adjustedIndex + 5;
 	facesSize++;
@@ -139,9 +130,6 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Bottom face triangles
-	for (int i = 0; i < numNormalRepeat; i++) {
-		AddNormals(0, -1, 0);
-	}
 
 	faces[facesSize] = adjustedIndex + 3;
 	facesSize++;
@@ -157,9 +145,6 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Right face triangles
-	for (int i = 0; i < numNormalRepeat; i++) {
-		AddNormals(1, 0, 0);
-	}
 
 	faces[facesSize] = adjustedIndex + 2;
 	facesSize++;
@@ -175,9 +160,6 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 
 	//Left face triangles
-	for (int i = 0; i < numNormalRepeat; i++) {
-		AddNormals(-1,0,0);
-	}
 
 	faces[facesSize] = adjustedIndex + 5;
 	facesSize++;
@@ -193,25 +175,14 @@ void RTRSceneBase::AddFaces() {
 	facesSize++;
 }
 
-void RTRSceneBase::AddNormals(float x, float y, float z) {
-	vertex_normals[normalSize] = x;
-	normalSize++;
-	vertex_normals[normalSize] = y;
-	normalSize++;
-	vertex_normals[normalSize] = z;
-	normalSize++;
-}
-
 void RTRSceneBase::ResetArrays()
 {
 	//empty arrays
 	std::fill(std::begin(vertex_points), std::end(vertex_points), 0);
-	std::fill(std::begin(vertex_normals), std::end(vertex_points), 0);
 	std::fill(std::begin(faces), std::end(faces), 0);
 
 	//reset sizes to 0
 	vertexSize = 0;
-	normalSize = 0;
 	facesSize = 0;
 
 }

@@ -11,7 +11,7 @@
 #include <gltext/gltext.h>
 
 //stores all time related values
-typedef struct { float frameRate, td_milliTotal; int frames, numberOfLights; bool isImmidiateMode; } Global;
+typedef struct { float frameRate, td_milliTotal, refreshRate; int frames, numberOfLights, currentBytes; bool isImmidiateMode; } Global;
 
 typedef struct { bool QuitApp, BackFace, DepthBuffer, Lighting, WireFrame, fullDisplay; } Toggles;
 
@@ -29,7 +29,7 @@ public:
 
 private:
 
-    Global g = { 0,0,0,1, true };
+    Global g = { 0,0,0,0,1,0, true };
     Toggles tog = { false, true, true, true, false, true };
     Movement move = { false, false, false, false, (float)m_WindowWidth/2, (float)m_WindowHeight / 2, 0.075f };
 
@@ -38,9 +38,10 @@ private:
     void RenderFrame();
     void RenderOSD();
     void CheckToggles();
-    void InitializeLights();
     void ChangeNumLights(int change);
     void ChangeRecursions(int change);
+    void UpdateRefreshRate();
+    std::string AddCommas(int number);
 };
 
 bool AssignmentApp::Tick(unsigned int td_milli)
@@ -127,23 +128,43 @@ void AssignmentApp::CheckInput()
                 currentScene = sceneList[0];
                 g.isImmidiateMode = true;
                 recursions = 1;
+                currentScene->Init(cam);
                 currentScene->CreateSponge(recursions);
-                currentScene->Init();
                 break;
             case SDLK_2:
                 currentScene = sceneList[1];
                 g.isImmidiateMode = false;
                 recursions = 1;
+                currentScene->Init(cam);
                 currentScene->CreateSponge(recursions);
-                currentScene->Init();
                 break;
             case SDLK_3:
+                currentScene = sceneList[2];
+                g.isImmidiateMode = false;
+                recursions = 1;
+                currentScene->Init(cam);
+                currentScene->CreateSponge(recursions);
                 break;
             case SDLK_4:
+                currentScene = sceneList[3];
+                g.isImmidiateMode = false;
+                recursions = 1;
+                currentScene->Init(cam);
+                currentScene->CreateSponge(recursions);
                 break;
             case SDLK_5:
+                currentScene = sceneList[4];
+                g.isImmidiateMode = false;
+                recursions = 1;
+                currentScene->Init(cam);
+                currentScene->CreateSponge(recursions);
                 break;
             case SDLK_6:
+                currentScene = sceneList[5];
+                g.isImmidiateMode = false;
+                recursions = 1;
+                currentScene->Init(cam);
+                currentScene->CreateSponge(recursions);
                 break;
             }
         }
@@ -208,15 +229,16 @@ void AssignmentApp::UpdateState(unsigned int td_milli)
     if (move.moveRight) {
         cam->MoveCamera(milliseconds, 3);
     }
-     
+    UpdateRefreshRate();
     cam->CalculateMatrix();
-
+    lightModel->UpdateDirectional(cam->GetDirection());
     // This is where we will do all our model updating, physics, etc...
 }
 
 // Render On-Screen Display
 void AssignmentApp::RenderOSD()
 {
+
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     char fpsBuffer[10];
@@ -228,17 +250,17 @@ void AssignmentApp::RenderOSD()
     char subDivisionBuffer[20];
     snprintf(subDivisionBuffer, sizeof subDivisionBuffer, "Subdivisions: %i", recursions);
 
-    char resolutionBuffer[30];
-    snprintf(resolutionBuffer, sizeof resolutionBuffer, "Resolution: %i X %i", m_ScreenHeight, m_ScreenWidth);
+    char resolutionBuffer[40];
+    snprintf(resolutionBuffer, sizeof resolutionBuffer, "Resolution: %i X %i, %i Hz", m_ScreenHeight, m_ScreenWidth, (int)roundf((g.refreshRate) * 100) / 100);
 
     char numVerticesBuffer[60];
-    snprintf(numVerticesBuffer, sizeof numVerticesBuffer, "Vertices: %u", currentScene->vertexSize);
+    snprintf(numVerticesBuffer, sizeof numVerticesBuffer, "Vertices: %u", currentScene->vertexSize / 3);
 
     char numFacesBuffer[60];
-    snprintf(numFacesBuffer, sizeof numFacesBuffer, "Faces: %u", currentScene->facesSize);
+    snprintf(numFacesBuffer, sizeof numFacesBuffer, "Faces: %u", currentScene->facesSize / 3);
 
     char dataSizeBuffer[30];
-    snprintf(dataSizeBuffer, sizeof dataSizeBuffer, "Data Size: %i", m_ScreenHeight);
+    snprintf(dataSizeBuffer, sizeof dataSizeBuffer, "Data Size: %s Bytes",  AddCommas(g.currentBytes).c_str());
 
     char lightingBuffer[30];
     snprintf(lightingBuffer, sizeof lightingBuffer, tog.Lighting ? "Lighting: ON" : "Lighting: OFF");
@@ -316,9 +338,7 @@ void AssignmentApp::RenderFrame()
 
     CheckToggles();
 
-    currentScene->DrawSponge(tog.Lighting, cam);
-    
-    // The rest of your frame rendering code goes here
+    g.currentBytes = currentScene->DrawSponge(tog.Lighting, cam, lightModel);
 
     SDL_GL_SwapWindow(m_SDLWindow);
 }
@@ -330,10 +350,8 @@ int AssignmentApp::Init()
     }
     SDL_SetRelativeMouseMode(SDL_TRUE);
     SDL_ShowCursor(false);
-
     cam = new Camera(m_ScreenWidth, m_ScreenHeight);
-
-    InitializeLights();
+    currentScene->Init(cam);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -376,84 +394,13 @@ void AssignmentApp::CheckToggles() {
     else {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-    if (tog.Lighting) {
-        glEnable(GL_LIGHTING);
-    }
-    else {
-        glDisable(GL_LIGHTING);
-    }
-}
-
-void AssignmentApp::InitializeLights() {
-
-    //setting up lighting
-
-    glEnable(GL_NORMALIZE);
-
-    //create camera light
-    GLfloat lightPosition[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-    GLfloat specularLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 25.0f);
-    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 2);
-
-    GLfloat lightPosition1[] = { 1.0, 1.0, 0.0, 1.0 };
-    GLfloat ambientLight1[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat diffuseLight1[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-    GLfloat specularLight1[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-    glLightfv(GL_LIGHT1, GL_AMBIENT, ambientLight1);
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuseLight1);
-    glLightfv(GL_LIGHT1, GL_SPECULAR, specularLight1);
-    glLightfv(GL_LIGHT1, GL_POSITION, lightPosition1);
-    glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 2);
-
-    GLfloat lightPosition2[] = { -1.0, 0.0, 1.0, 1.0 };
-    GLfloat ambientLight2[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat diffuseLight2[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-    GLfloat specularLight2[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-    glLightfv(GL_LIGHT2, GL_AMBIENT, ambientLight2);
-    glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuseLight2);
-    glLightfv(GL_LIGHT2, GL_SPECULAR, specularLight2);
-    glLightfv(GL_LIGHT2, GL_POSITION, lightPosition2);
-    glLightf(GL_LIGHT2, GL_LINEAR_ATTENUATION, 2);
-
-    GLfloat lightPosition3[] = { 1.0, 0.0, -1.0, 1.0 };
-    GLfloat ambientLight3[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat diffuseLight3[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-    GLfloat specularLight3[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-    glLightfv(GL_LIGHT3, GL_AMBIENT, ambientLight3);
-    glLightfv(GL_LIGHT3, GL_DIFFUSE, diffuseLight3);
-    glLightfv(GL_LIGHT3, GL_SPECULAR, specularLight3);
-    glLightfv(GL_LIGHT3, GL_POSITION, lightPosition3);
-
-
-
-
-
-    //enable the lighting
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-
 }
 
 void AssignmentApp::ChangeNumLights(int change)
 {
-    if (change + g.numberOfLights > 0 && change + g.numberOfLights < 5) {
+    if (change + g.numberOfLights > 0 && change + g.numberOfLights < 8) {
         g.numberOfLights += change;
-
+        
         switch (g.numberOfLights) {
         case 1:
             glDisable(GL_LIGHT1);
@@ -468,17 +415,70 @@ void AssignmentApp::ChangeNumLights(int change)
             break;
         case 4:
             glEnable(GL_LIGHT3);
+            glDisable(GL_LIGHT4);
+            break;
+        case 5:
+            glEnable(GL_LIGHT4);
+            glDisable(GL_LIGHT5);
+            break;
+        case 6:
+            glEnable(GL_LIGHT5);
+            glDisable(GL_LIGHT6);
+            break;
+        case 7:
+            glEnable(GL_LIGHT6);
+            glDisable(GL_LIGHT7);
+            break;
+        case 8:
+            glEnable(GL_LIGHT7);
             break;
         }
     }
+    lightModel->ChangeLightNum(change);
 }
 
 void AssignmentApp::ChangeRecursions(int change) {
-    if (recursions > 1 || change >= 0) {
+    if ((recursions > 1 || change >= 0) && (recursions < 5 || change <= 0)) {
         recursions += change;
 
         currentScene->CreateSponge(recursions);
     }
+}
+
+void AssignmentApp::UpdateRefreshRate() {
+    SDL_DisplayMode dm;
+    int displayIndex = SDL_GetWindowDisplayIndex(m_SDLWindow);
+
+    int defaultRefreshRate = 0;
+
+    if (SDL_GetDesktopDisplayMode(displayIndex, &dm) != 0 || dm.refresh_rate == 0) {
+        g.refreshRate = defaultRefreshRate;
+    }
+    else {
+        g.refreshRate = dm.refresh_rate;
+    }
+}
+
+std::string AssignmentApp::AddCommas(int number)
+{
+    std::string result = "";
+    if (number > 0) {
+        std::string strNum = std::to_string(number);
+        std::string comma = ",";
+
+        for (int i = strNum.length() - 1; i >= 0; i--) {
+            std::string insertStr;
+            if ((strNum.length() - i) % 3 == 0 && i > 0) {
+                insertStr = strNum.at(i);
+                insertStr.insert(0, comma);
+            }
+            else {
+                insertStr = strNum.at(i);
+            }
+            result.insert(0, insertStr);
+        }
+    }
+    return result;
 }
 
 static const char* MAIN_WINDOW_TITLE = "COSC1226 - Assignment 1";

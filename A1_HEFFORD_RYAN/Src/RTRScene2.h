@@ -7,8 +7,8 @@ public:
 	RTRScene2();
 	~RTRScene2();
 
-	void DrawSponge(bool lighting, Camera* cam);
-	void Init();
+	int DrawSponge(bool lighting, Camera* cam, Light* lightModel);
+	void Init(Camera* cam);
 	void ResetShaders();
 	void CreateSponge(int subDivisions);
 

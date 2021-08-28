@@ -35,12 +35,40 @@ void Camera::MoveCamera(float deltaTime, int direction) {
 
 }
 
+glm::vec3& Camera::GetPosition() {
+	return camPosition;
+}
+
+glm::vec3 Camera::GetDirection() {
+	return camDirection;
+}
+
 glm::mat4& Camera::GetView() {
 	return view;
 }
 
 glm::mat4& Camera::GetProj() {
 	return proj;
+}
+
+//camera position reset for scene init
+void Camera::ResetPosition(glm::vec3 newPosition) {
+
+	camSpeed = newPosition.z / 3;
+	camPosition = newPosition;
+	
+	camTarget = glm::vec3(0, 0, 0);
+	camDirection = glm::normalize(camPosition - camTarget);
+	up = glm::vec3(0, 1, 0);
+	camRight = glm::normalize(glm::cross(up, camDirection));
+	camUp = glm::cross(camDirection, camRight);
+	camFront = glm::vec3(0, 0, -1);
+	view = glm::mat4(1);
+	proj = glm::mat4(1);
+	yaw = -90;
+	pitch = 0;
+	CalculateMatrix();
+	AddYawAndPitch(0, 0);
 }
 
 void Camera::AddYawAndPitch(float Xoffset, float Yoffset)
@@ -65,7 +93,7 @@ void Camera::AddYawAndPitch(float Xoffset, float Yoffset)
 
 void Camera::CalculateMatrix()
 {
-	proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.01f, 10.0f);
+	proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.01f, 100.0f);
 	view = glm::lookAt(camPosition, camPosition + camFront, camUp);
 
 

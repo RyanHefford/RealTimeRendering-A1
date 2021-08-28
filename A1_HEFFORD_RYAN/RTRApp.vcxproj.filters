@@ -39,6 +39,18 @@
     <ClCompile Include="Src\RTRScene2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\RTRScene3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RTRScene4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RTRScene5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RTRScene6.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\RTRApp.h">
@@ -62,15 +74,27 @@
     <ClInclude Include="Src\RTRScene2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\RTRScene3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\RTRScene4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\RTRScene5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\RTRScene6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Src\RTRScene2.frag">
+    <None Include="Src\RTR.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Src\RTRScene2.vert">
+    <None Include="Src\RTR.vert">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Src\RTRScene2.geom">
+    <None Include="Src\RTR.geom">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

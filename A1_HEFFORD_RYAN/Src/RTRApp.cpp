@@ -8,6 +8,19 @@
 #include "RTRApp.h"
 #define STB_IMAGE_IMPLEMENTATION
 
+//void GLAPIENTRY
+//MessageCallback(GLenum source,
+//    GLenum type,
+//    GLuint id,
+//    GLenum severity,
+//    GLsizei length,
+//    const GLchar* message,
+//    const void* userParam)
+//{
+//    fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+//        (type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+//        type, severity, message);
+//}
 
 RTRApp::RTRApp(const char* title, bool fullscreen, int width, int height)
 {
@@ -22,13 +35,16 @@ RTRApp::RTRApp(const char* title, bool fullscreen, int width, int height)
     m_GLContext = nullptr;
 
     //create all scenes
-    sceneList[0] = new RTRScene1();
+    sceneList[0] = new RTRScene1(lightModel);
     sceneList[1] = new RTRScene2();
+    sceneList[2] = new RTRScene3();
+    sceneList[3] = new RTRScene4();
+    sceneList[4] = new RTRScene5();
+    sceneList[5] = new RTRScene6();
 
     currentScene = sceneList[0];
     currentScene->CreateSponge(1);
 
-    rotation = {0,0,0};
     recursions = 1;
 }
 
@@ -90,6 +106,10 @@ int RTRApp::Init()
 
 
     std::cout << "RTR:MESSAGE: OpenGL version " << GLVersion.major << "." << GLVersion.minor << " initialised." << std::endl;
+
+    /*glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, 0);*/
+
     return 0;
 }
 

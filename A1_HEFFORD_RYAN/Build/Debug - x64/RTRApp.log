@@ -1,7 +1,12 @@
-﻿  main.cpp
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Include\gltext\gltext.h(300,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\main.cpp(191,54): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\main.cpp(334,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\main.cpp(334,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  RTRScene1.cpp
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(30,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(92,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(96,102): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(96,102): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(97,102): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(97,102): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(98,106): warning C4838: conversion from 'int' to 'GLfloat' requires a narrowing conversion
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(98,106): warning C4244: 'initializing': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Src\RTRScene1.cpp(108,32): warning C4244: '=': conversion from 'int' to 'GLfloat', possible loss of data
   RTRApp.vcxproj -> C:\Users\Ryan\OneDrive - RMIT University\Desktop\RMIT\Y3S2\RealTimeRendering\RealTimeRendering-A1\A1_HEFFORD_RYAN\Build\Debug - x64\A1.exe
   0 File(s) copied
