@@ -33,6 +33,8 @@ private:
     Toggles tog = { false, true, true, true, false, true };
     Movement move = { false, false, false, false, (float)m_WindowWidth/2, (float)m_WindowHeight / 2, 0.075f };
 
+    float lastUpdateTime = 0;
+
     void CheckInput();
     void UpdateState(unsigned int td_milli);
     void RenderFrame();
@@ -213,7 +215,18 @@ void AssignmentApp::UpdateState(unsigned int td_milli)
         g.frames = 0;
         g.td_milliTotal = 0;
     }
+
+    //used for benchmarking (updates fps every second)
+    /*if (lastUpdateTime + 1000 < SDL_GetTicks()) {
+        float averageMilli = g.td_milliTotal / 100;
+        g.frameRate = roundf((1000.0 / averageMilli) * g.frames) / 100;
+        g.frames = 0;
+        g.td_milliTotal = 0;
+        lastUpdateTime = SDL_GetTicks();
+    }*/
+
     g.td_milliTotal += td_milli;
+
 
     float milliseconds = (float)td_milli / 1000;
 
@@ -341,6 +354,7 @@ void AssignmentApp::RenderFrame()
     g.currentBytes = currentScene->DrawSponge(tog.Lighting, cam, lightModel);
 
     SDL_GL_SwapWindow(m_SDLWindow);
+    
 }
 
 int AssignmentApp::Init()

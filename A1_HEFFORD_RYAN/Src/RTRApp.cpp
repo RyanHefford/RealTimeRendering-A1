@@ -50,6 +50,7 @@ RTRApp::RTRApp(const char* title, bool fullscreen, int width, int height)
 
 int RTRApp::Init()
 {
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "RTR:ERROR: SDL2 video subsystem couldn't be initialized. Error: " << SDL_GetError() << std::endl;
         return -1;
@@ -83,7 +84,7 @@ int RTRApp::Init()
         std::cerr << "RTR:ERROR: SDL2 Renderer couldn't be created. Error: " << SDL_GetError() << std::endl;
         return -2;
     }
-
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     m_GLContext = SDL_GL_CreateContext(m_SDLWindow);
 
     if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
@@ -103,8 +104,7 @@ int RTRApp::Init()
     else {
         std::cerr << "RTR:WARNING: SDL coudn't retrieve current display mode details." << std::endl;
     }
-
-
+    //SDL_GL_SetSwapInterval(0);
     std::cout << "RTR:MESSAGE: OpenGL version " << GLVersion.major << "." << GLVersion.minor << " initialised." << std::endl;
 
     /*glEnable(GL_DEBUG_OUTPUT);

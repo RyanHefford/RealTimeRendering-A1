@@ -54,7 +54,7 @@ glm::mat4& Camera::GetProj() {
 //camera position reset for scene init
 void Camera::ResetPosition(glm::vec3 newPosition) {
 
-	camSpeed = newPosition.z / 3;
+	camSpeed = newPosition.z / 4;
 	camPosition = newPosition;
 	
 	camTarget = glm::vec3(0, 0, 0);

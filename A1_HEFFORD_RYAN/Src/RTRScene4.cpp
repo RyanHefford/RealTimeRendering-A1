@@ -1,5 +1,4 @@
 #include "RTRScene4.h"
-#include "glm/gtx/string_cast.hpp"
 RTRScene4::RTRScene4()
 {
     sceneName = "4 - Instanced Geometry 2";
